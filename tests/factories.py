@@ -27,10 +27,9 @@ class ProductFactory(factory.Factory):
 
     class Meta:
         """Maps factory to data model"""
-
         model = Product
 
-    id = factory.Sequence(lambda n: n)
+    id = factory.Sequence(lambda n: n + 1)  # IDs should start from 1
     name = FuzzyChoice(
         choices=[
             "Hat",
@@ -47,7 +46,7 @@ class ProductFactory(factory.Factory):
         ]
     )
     description = factory.Faker("text")
-    price = FuzzyDecimal(0.5, 2000.0, 2)
+    price = FuzzyDecimal(0.5, 2000.0, 2)  # Random price between 0.5 and 2000.0 with 2 decimal points
     available = FuzzyChoice(choices=[True, False])
     category = FuzzyChoice(
         choices=[

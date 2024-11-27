@@ -21,7 +21,6 @@ Test cases can be run with:
 
 While debugging just these tests it's convenient to use this:
     nosetests --stop tests/test_models.py:TestProductModel
-
 """
 import os
 import logging
@@ -34,7 +33,6 @@ from tests.factories import ProductFactory
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
 )
-
 
 ######################################################################
 #  P R O D U C T   M O D E L   T E S T   C A S E S
@@ -101,9 +99,6 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(new_product.available, product.available)
         self.assertEqual(new_product.category, product.category)
 
-    #
-    # ADD YOUR TEST CASES HERE
-    #
     def test_read_a_product(self):
         """It should Read a Product"""
         product = ProductFactory()
@@ -123,7 +118,7 @@ class TestProductModel(unittest.TestCase):
         product.id = None
         product.create()
         self.assertIsNotNone(product.id)
-        # Change it an save it
+        # Change it and save it
         product.description = "testing"
         original_id = product.id
         product.update()
@@ -134,7 +129,7 @@ class TestProductModel(unittest.TestCase):
         products = Product.all()
         self.assertEqual(len(products), 1)
         self.assertEqual(products[0].id, original_id)
-        self.assertEqual(products[0].description, "testing") 
+        self.assertEqual(products[0].description, "testing")
 
     def test_delete_a_product(self):
         """It should Delete a Product"""
@@ -179,7 +174,7 @@ class TestProductModel(unittest.TestCase):
         found = Product.find_by_availability(available)
         self.assertEqual(found.count(), count)
         for product in found:
-            self.assertEqual(product.available, available)  
+            self.assertEqual(product.available, available)
 
     def test_find_by_category(self):
         """It should Find Products by Category"""
